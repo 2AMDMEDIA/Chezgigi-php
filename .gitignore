@@ -1,0 +1,18 @@
+# Configuration locale (contient les credentials BDD)
+public/config.php
+
+# Credentials FTP locaux
+.ftp-credentials
+
+# Logs
+*.log
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Editeurs
+.vscode/
+.idea/
+*.swp
+*~

@@ -1,0 +1,24 @@
+# Sécurité de base — bloque l'accès direct au config.php
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "config.example.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Désactive la liste des dossiers
+Options -Indexes
+
+# Cache des assets statiques
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+</IfModule>

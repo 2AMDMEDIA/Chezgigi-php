@@ -1,0 +1,301 @@
+/* ==========================================================
+   ChezGigi - Planning de réservations
+   Styles globaux (tailwind-like, en CSS pur)
+   ========================================================== */
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2937;
+    background: #f9fafb;
+    font-size: 14px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ----- Navbar ----- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+}
+.navbar .brand { font-weight: 600; font-size: 16px; }
+.navbar .nav-links { display: flex; gap: 16px; }
+.navbar .nav-links a {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #4b5563;
+}
+.navbar .nav-links a:hover { background: #f3f4f6; }
+.navbar .nav-links a.active { background: #dbeafe; color: #1e40af; }
+.navbar .nav-links a.logout { color: #b91c1c; }
+
+/* ----- Conteneur ----- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 24px 64px;
+}
+
+h1 { font-size: 22px; margin: 16px 0 16px; }
+h2 { font-size: 16px; margin: 24px 0 12px; }
+h3 { font-size: 14px; margin: 0 0 12px; font-weight: 600; }
+
+.hint { color: #6b7280; font-size: 13px; }
+
+/* ----- Toolbar ----- */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.legend {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #4b5563;
+}
+.legend > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* ----- Stats cards ----- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.stat-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+.stat-card .label { color: #6b7280; font-size: 13px; }
+.stat-card .value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+.stat-card.green .value { color: #059669; }
+.stat-card.blue .value  { color: #2563eb; }
+.stat-card.amber .value { color: #d97706; }
+
+/* ----- Calendar wrapper ----- */
+.calendar-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 8px;
+}
+@media (min-width: 640px) {
+    .calendar-card { padding: 16px; }
+}
+.fc { font-size: 13px; }
+.fc .fc-button-primary {
+    background: #1f2937;
+    border-color: #1f2937;
+}
+.fc .fc-button-primary:hover {
+    background: #111827;
+    border-color: #111827;
+}
+.fc .fc-toolbar-title { font-size: 18px !important; }
+
+/* ----- Buttons ----- */
+.btn {
+    display: inline-block;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.btn-dark { background: #1f2937; color: #fff; }
+.btn-dark:hover { background: #111827; }
+.btn-danger { background: transparent; color: #dc2626; padding: 8px 0; }
+.btn-danger:hover { color: #b91c1c; }
+.btn-ghost { background: transparent; color: #4b5563; padding: 8px 16px; }
+.btn-ghost:hover { color: #1f2937; }
+
+/* ----- Cards ----- */
+.card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* ----- Forms ----- */
+label {
+    display: block;
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 4px;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="url"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+}
+input:disabled, select:disabled {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, .15);
+}
+textarea { resize: vertical; }
+
+.form-row { margin-bottom: 12px; }
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.checkbox-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.checkbox-row input { width: auto; margin: 0; }
+.checkbox-row .hint { font-size: 12px; color: #9ca3af; }
+
+/* ----- Login page ----- */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e3a8a, #312e81);
+    padding: 16px;
+}
+.login-card {
+    background: #fff;
+    padding: 32px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.2);
+}
+.login-card h1 { text-align: center; font-size: 22px; margin: 0 0 4px; }
+.login-card .subtitle { text-align: center; color: #6b7280; margin: 0 0 24px; }
+.login-card label { margin-bottom: 12px; }
+.login-card .btn { width: 100%; padding: 10px 16px; margin-top: 8px; }
+
+.alert {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+/* ----- Modal ----- */
+[hidden] { display: none !important; }
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    padding: 16px;
+}
+.modal {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    width: 100%;
+    max-width: 440px;
+    padding: 24px;
+}
+.modal h2 { margin: 0 0 16px; font-size: 16px; }
+.modal-actions {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 16px;
+    margin-top: 16px;
+}
+.modal-actions .spacer { flex: 1; }
+.info-box {
+    background: #f3f4f6;
+    color: #6b7280;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+/* ----- Sources list ----- */
+.source-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+.source-item .info { flex: 1; min-width: 0; }
+.source-item .name { font-weight: 500; }
+.source-item .url {
+    font-size: 12px;
+    color: #6b7280;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+.source-item .last-sync { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.source-item .delete-btn {
+    background: transparent;
+    color: #dc2626;
+    border: 0;
+    cursor: pointer;
+    font-size: 13px;
+}
+.source-item .delete-btn:hover { color: #991b1b; }
