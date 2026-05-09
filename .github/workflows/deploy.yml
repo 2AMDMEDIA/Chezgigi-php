@@ -6,6 +6,10 @@ on:
   # Permet aussi de lancer manuellement depuis l'onglet Actions
   workflow_dispatch:
 
+env:
+  # Force Node 24 pour éviter le warning de dépréciation Node 20
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
