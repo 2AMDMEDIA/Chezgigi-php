@@ -1,0 +1,42 @@
+name: Deploy to FTP
+
+on:
+  push:
+    branches: [main]
+  # Permet aussi de lancer manuellement depuis l'onglet Actions
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Reconstitue la structure attendue sur le serveur :
+      #   public/*  → racine FTP
+      #   src/*     → /src/
+      - name: Build deploy directory
+        run: |
+          mkdir -p deploy/src
+          cp -a public/. deploy/
+          cp -a src/. deploy/src/
+          # Sécurité : on ne déploie jamais le config.php (credentials BDD)
+          rm -f deploy/config.php
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:        ${{ secrets.FTP_HOST }}
+          username:      ${{ secrets.FTP_USER }}
+          password:      ${{ secrets.FTP_PASSWORD }}
+          port:          21
+          protocol:      ftp
+          local-dir:     ./deploy/
+          server-dir:    ./
+          # Évite d'écraser ces fichiers s'ils existent déjà sur le serveur
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.ftp-credentials
+            **/config.php
