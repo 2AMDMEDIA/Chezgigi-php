@@ -69,7 +69,11 @@ async function loadReservations() {
 
 function renderEvents() {
     const events = reservations.map((r) => {
-        const blocked = !r.isMenage && /not available|closed|blocked/i.test(r.guestName);
+        // Booking utilise toujours "CLOSED" dans son iCal, même pour les vraies
+        // réservations — on ne traite donc "blocked" que pour Airbnb.
+        const src = (r.source || '').toUpperCase().replace(/\s+/g, '');
+        const isBooking = src.includes('BOOKING');
+        const blocked = !r.isMenage && !isBooking && /not available|closed|blocked/i.test(r.guestName);
         let bg, txt = '#fff';
         if (r.isMenage) {
             bg = MENAGE_COLOR;
