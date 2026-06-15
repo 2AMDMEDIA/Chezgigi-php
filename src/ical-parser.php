@@ -140,20 +140,26 @@ function sync_ical_source(int $sourceId): int
     }
 
     // ----- Détection des annulations -----
-    // Toute réservation de cette source qui n'est plus dans le flux iCal
-    // est considérée comme annulée et supprimée.
+    // On ne supprime QUE les réservations actuelles ou futures (end_date >= aujourd'hui)
+    // de cette source qui ne sont plus dans le flux iCal.
+    // → Les réservations passées sont conservées comme historique.
+    // → C'est important car Booking n'inclut pas l'historique dans son iCal.
     if ($foundUids) {
         $placeholders = implode(',', array_fill(0, count($foundUids), '?'));
         $params = array_merge([$reservationSource], $foundUids);
         $sql = "DELETE FROM reservation
                 WHERE source = ?
                   AND ical_uid IS NOT NULL
-                  AND ical_uid NOT IN ($placeholders)";
+                  AND ical_uid NOT IN ($placeholders)
+                  AND end_date >= CURDATE()";
         $pdo->prepare($sql)->execute($params);
     } else {
-        // Flux vide : on supprime toutes les réservations de cette source
+        // Flux vide : on supprime uniquement les réservations futures de cette source
         $pdo->prepare(
-            'DELETE FROM reservation WHERE source = ? AND ical_uid IS NOT NULL'
+            'DELETE FROM reservation
+              WHERE source = ?
+                AND ical_uid IS NOT NULL
+                AND end_date >= CURDATE()'
         )->execute([$reservationSource]);
     }
 
